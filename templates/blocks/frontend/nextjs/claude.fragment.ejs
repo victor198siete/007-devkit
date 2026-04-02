@@ -1,0 +1,8 @@
+### Next.js / Frontend
+- Prefer RSC (React Server Components) by default — 'use client' only when strictly needed
+- Server Actions for all mutations (forms, deletes, updates)
+- Route Handlers for REST API endpoints in app/api/
+- generateMetadata() on every page for SEO
+- always next/image for images, next/font for fonts
+- CSS theme variables (--color-*) — never hardcoded colors
+- revalidatePath() / revalidateTag() after every mutation

@@ -1,0 +1,8 @@
+## Database (MySQL)
+
+- **DB_SYNCHRONIZE=false** — always create migration files, never auto-sync
+- Tables: `snake_case` plural
+- Primary keys: UUID or auto-increment (prefer UUID for distributed systems)
+- Timestamps: `created_at`, `updated_at` on every entity
+- Migrations: generate and run explicitly before deploying
+- Never ALTER or DROP columns without reviewing impact on existing data

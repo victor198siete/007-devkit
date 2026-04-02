@@ -1,0 +1,25 @@
+
+## Anti-Patterns (Forbidden)
+
+- ❌ `console.log()` — use Logger or toast notifications
+- ❌ `: any` — use proper TypeScript types
+- ❌ Hard-coded secrets — use environment variables
+- ❌ `process.env` directly in business code — use a config service
+
+---
+
+## Compliance Checklist — MANDATORY AT COMPLETION
+
+**Include this table at the end of every response:**
+
+| Document / Resource | Applied? | Note |
+|---------------------|:--------:|------|
+| `.cursorrules` | ✅ / ⚠️ / ➖ | |
+<% if (hasFrontend && isAngular) { %>| `docs/frontend-ui-ux-guidelines.md` | ✅ / ⚠️ / ➖ | |
+| `docs/frontend-architecture-standards.md` | ✅ / ⚠️ / ➖ | |
+<% } %><% if (hasBackend && isNestjs) { %>| `docs/nest-backend-general-standards.md` | ✅ / ⚠️ / ➖ | |
+<% } %>| `docs/aim-methodology.md` | ✅ / ⚠️ / ➖ | |
+| `agents/workflows/<name>` | ✅ / ⚠️ / ➖ | |
+| `agents/roles/<agent>` | ✅ / ⚠️ / ➖ | |
+
+**Legend:** ✅ Applied · ⚠️ Considered with justified deviation · ➖ Not applicable

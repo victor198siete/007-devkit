@@ -1,0 +1,11 @@
+## Frontend (Angular 21)
+- Signals mandatory: signal(), computed(), effect() — never BehaviorSubject
+- Injection: always inject(), never constructor injection
+- HTTP: always RepoHttp (not HttpClient directly)
+- Styles: CSS theme variables (--color-*) — never hardcoded colors
+- Control flow: @if / @for — never *ngIf / *ngFor
+- Components: always standalone: true
+- Inputs: input() / input.required() — never @Input()
+- Outputs: output() — never @Output()
+- Template inline — never templateUrl
+- Protected for template fields, private for internal logic

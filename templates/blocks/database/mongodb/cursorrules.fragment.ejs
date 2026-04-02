@@ -1,0 +1,9 @@
+## Database (MongoDB)
+
+- Schema-first: always define Mongoose schema or Prisma model before writing service logic
+- `_id`: use default ObjectId unless there's a specific reason for custom IDs
+- Field names: `camelCase` in documents (MongoDB convention)
+- Indexes: define explicitly in schema (`index: true` or dedicated `createIndexes()`)
+- Transactions: use sessions for multi-document operations
+- Never store sensitive data (passwords, tokens) in plain text
+- Migrations: use a migration tool (migrate-mongo or Prisma migrate) — never modify collections manually in production

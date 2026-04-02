@@ -1,0 +1,11 @@
+## Backend (Next.js API Routes)
+
+- Route handlers: `app/api/<resource>/route.ts` with named exports (GET, POST, PATCH, DELETE)
+- Always return `NextResponse.json()` with explicit status codes
+- Validate all request bodies with Zod (`safeParse` — never throw on invalid input)
+- Auth check at the top of every route handler and DAL function
+- Data Access Layer (`lib/dal/`): all DB queries go through DAL — never raw ORM in routes
+- Server Actions: `'use server'` directive, Zod validation, always return typed result
+- Always call `revalidatePath()` or `revalidateTag()` after mutations
+- Error responses: `{ error: string }` — never expose stack traces
+- `cache()` from React for request-level memoization in RSC data fetching

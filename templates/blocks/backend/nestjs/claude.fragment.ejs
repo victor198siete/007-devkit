@@ -1,0 +1,12 @@
+### NestJS / Backend
+
+- **JWT payload:** use `req.user.sub` for user ID (not `req.user.id`)
+- **Roles guard:** `@Roles(...)` — `req.user.roles` is an array of strings
+- **Permissions:** `@Permissions(...)` for granular action-level access
+- **Migrations:** always create file in `src/database/migrations/` — `DB_SYNCHRONIZE=false`
+- **Logging:** `new Logger(ClassName.name)` — never `console.log()`
+- **Config:** `ConfigService` — never `process.env` in business logic
+- **HTTP exceptions:** `NotFoundException`, `ConflictException`, `ForbiddenException`, `BadRequestException`
+- **Audit:** `AuditService.log()` on every CREATE, UPDATE, DELETE
+- **Routes:** kebab-case plural (`/resource-names`, `/activity-logs`)
+- **Never:** `: any`, `console.log()`, `process.env` direct access, `synchronize: true`

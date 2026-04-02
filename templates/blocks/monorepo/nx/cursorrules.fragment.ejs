@@ -1,0 +1,10 @@
+## Monorepo (Nx)
+
+- **Always use Nx CLI** (`npx nx ...`) or root `package.json` scripts — NEVER run `npm install` inside `apps/` or `libs/`
+- Shared code (DTOs, interfaces, utilities) MUST live in `libs/shared/` — never duplicate across apps
+- Run commands per-project: `npx nx build <app>`, `npx nx test <app>`, `npx nx lint <app>`
+- Dependency graph: check with `npx nx graph` before adding cross-project imports
+- Tags: enforce module boundaries with tags in `project.json` (`scope:api`, `scope:web`, `scope:mobile`, `scope:shared`)
+- Generators: use Nx generators when available (`npx nx g @nx/nest:module`, `npx nx g @nx/angular:component`)
+- Cache: leverage Nx cache — don't skip it (`--skip-nx-cache` only for debugging)
+- Affected: use `npx nx affected:build` and `npx nx affected:test` in CI to run only impacted projects

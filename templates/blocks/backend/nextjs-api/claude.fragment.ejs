@@ -1,0 +1,5 @@
+### Next.js API / Backend
+- Route Handlers: `app/api/<resource>/route.ts` with named GET/POST/PATCH/DELETE exports
+- Always validate with Zod, always check auth before data access
+- Data Access Layer (`lib/dal/`) — no raw ORM queries in route handlers
+- Server Actions: `'use server'`, Zod validation, `revalidatePath()` after mutations

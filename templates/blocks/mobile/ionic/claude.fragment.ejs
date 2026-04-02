@@ -1,0 +1,13 @@
+### Mobile (Ionic / Angular)
+
+- **Ionic components:** import individually (`IonContent`, `IonButton`, etc.) — never `IonicModule`
+- **Icons:** register with `addIcons()` in constructor — only icons used in the component
+- **Roles:** parents → `/parent/*`, teachers/admin → `/teacher/*`
+- **Tab layouts:** separate component per role — never share tab layouts between roles
+- **Signals:** `signal()`, `computed()`, `effect()` for all reactive state — never `BehaviorSubject`
+- **DI:** `inject()` for all injection — never constructor parameter injection
+- **Templates:** `@if` / `@for` control flow — never `*ngIf` / `*ngFor`
+- **Pull-to-refresh:** `IonRefresher` on all list pages
+- **Offline:** handle network errors with user-friendly message and retry option
+- **Native APIs:** wrap Capacitor calls with `Capacitor.isNativePlatform()` check
+- **Never:** `IonicModule`, `BehaviorSubject`, constructor injection, `*ngIf`/`*ngFor`, hardcoded colors

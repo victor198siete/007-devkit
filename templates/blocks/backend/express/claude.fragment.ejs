@@ -1,0 +1,11 @@
+### Express / Fastify Backend
+
+- **Config:** `config` object from `src/config/index.ts` — never `process.env` in business logic
+- **Validation:** Zod schemas on all routes — body, params, and query validated before controller
+- **Async safety:** all async handlers wrapped with `asyncHandler` utility
+- **Errors:** throw `HttpError.notFound()`, `HttpError.conflict()`, etc. — centralized error middleware handles all
+- **Status codes:** `StatusCodes.OK`, `StatusCodes.CREATED` etc. from `http-status-codes` — never magic numbers
+- **Logging:** structured logger (`pino`/`winston`) — never `console.log()`
+- **Auth:** `req.user.sub` for the authenticated user ID
+- **Roles:** `requireRole(...)` middleware — never inline role checks
+- **Never:** `: any`, `console.log()`, `process.env` outside config, raw `new Error()` for HTTP errors

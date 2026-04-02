@@ -1,0 +1,11 @@
+## Database (PostgreSQL)
+
+- **DB_SYNCHRONIZE=false** — NEVER use auto-sync in any environment, always create migration files
+- Tables: `snake_case` plural (`user_profiles`, not `UserProfile` or `userProfile`)
+- Primary keys: always `UUID` (never auto-increment integers)
+- Column names: explicit `snake_case` in ORM decorator (`@Column({ name: 'created_at' })`)
+- Foreign keys: explicit column declaration (`@Column({ name: 'parent_id' }) parentId: string`)
+- Timestamps: `@CreateDateColumn({ name: 'created_at' })` and `@UpdateDateColumn({ name: 'updated_at' })`
+- Migrations: generate in `<%= isNx ? 'apps/api/src' : 'src' %>/database/migrations/` — never DROP columns with data without a backup plan
+- Soft deletes: prefer `@DeleteDateColumn` over hard deletes for business entities
+- Indexes: add explicit `@Index` decorators for frequently queried columns (tenantId, userId, etc.)

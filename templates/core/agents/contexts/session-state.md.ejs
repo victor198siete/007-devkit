@@ -1,0 +1,84 @@
+# Session State — <%= projectName %>
+
+> This file is updated at the start and end of each work session.
+> Agents read it to resume context without re-explanation.
+> Update it manually or ask the agent to update it at the end of a task.
+
+---
+
+## Last Update
+
+**Date:** [YYYY-MM-DD]
+**Active branch:** `[branch-name]`
+**Session:** [Brief description of what this session focused on]
+
+---
+
+## Project Status
+
+| App | Status | Last Work |
+|-----|--------|-----------|
+| `[backend app]` | [Active / Stable / Blocked] | [Last completed task] |
+| `[web app]` | [Active / Stable / Blocked] | [Last completed task] |
+| `[mobile app]` | [Active / Stable / Blocked] | [Last completed task] |
+
+---
+
+## Features in Progress
+
+| Feature | Responsible Agent | Status | Branch |
+|---------|-------------------|--------|--------|
+| [Feature name] | [@agent] | [In progress / Blocked / Review] | `[branch]` |
+| [Feature name] | [@agent] | [In progress / Blocked / Review] | `[branch]` |
+
+---
+
+## Recently Completed Features
+
+- [x] [Feature or task completed]
+- [x] [Feature or task completed]
+- [x] [Feature or task completed]
+
+---
+
+## Recent Technical Decisions
+
+| Decision | Date | Reason |
+|----------|------|--------|
+| [Decision description] | [YYYY-MM-DD] | [Why it was made] |
+| [Decision description] | [YYYY-MM-DD] | [Why it was made] |
+
+---
+
+## Existing Modules
+
+| Module | Path | Status |
+|--------|------|--------|
+| | | |
+
+> Fill this table as modules are created. Status: Planned / In progress / Complete
+
+---
+
+## Blockers / Critical Pending Items
+
+_(None currently)_
+
+---
+
+## Next Session — What to Do
+
+1. [First priority action for the next session]
+2. [Second priority action]
+3. [Third priority action]
+
+---
+
+## Instructions for the Agent at Session Start
+
+When reading this file, the agent must:
+
+1. Confirm the active git branch: `git branch`
+2. Check for uncommitted changes: `git status`
+3. Look for any new modules or files added since the last session
+4. Ask the user if priorities have changed before continuing with the listed next steps

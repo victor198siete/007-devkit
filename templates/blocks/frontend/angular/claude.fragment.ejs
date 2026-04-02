@@ -1,0 +1,6 @@
+### Angular / Web
+- Signals mandatory: signal(), computed(), effect() — never BehaviorSubject
+- Injection: always inject(), never constructor injection
+- HTTP: always RepoHttp (not HttpClient directly)
+- Styles: CSS theme variables (--color-*) — see docs/frontend-ui-ux-guidelines.md
+- No hardcoded Tailwind: never text-blue-500, always text-(--color-primary)

@@ -1,0 +1,12 @@
+## Mobile (React Native + Expo)
+
+- Functional components only — no class components
+- StyleSheet.create() for all styles — never inline style objects (performance)
+- expo-secure-store for sensitive data (auth tokens) — never AsyncStorage for secrets
+- Platform differences: Platform.OS checks or .ios.tsx / .android.tsx file extensions
+- No web-only APIs (window, document, localStorage) — use RN equivalents
+- React Query for all server state — same patterns as web
+- Zustand for global local state (auth session, user preferences)
+- EAS Build for production — never deprecated `expo build` command
+- Deep linking: configure app.json scheme for both iOS and Android
+- Push notifications: expo-notifications with proper permission requests

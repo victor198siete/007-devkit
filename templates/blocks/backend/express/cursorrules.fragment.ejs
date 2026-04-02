@@ -1,0 +1,16 @@
+## Backend (Express / Fastify)
+
+- Route files in src/routes/ — one file per resource, mounts only path + method
+- Controllers in src/controllers/ — handle request/response only, no business logic
+- Services in src/services/ — all business logic and data access
+- All async route handlers must be wrapped with asyncHandler utility
+- Zod for all request validation (body, params, query) — never manual checks
+- Environment variables: read process.env once in src/config/index.ts, use config object everywhere else
+- HTTP status codes: always use named constants from http-status-codes (StatusCodes.OK, StatusCodes.NOT_FOUND, etc.)
+- Error handling: throw HttpError instances from services, centralized error middleware handles all errors
+- Structured logger (pino/winston) for all logging — never console.log()
+- CORS: never wildcard (*) in production — explicit origin allowlist from config
+- Auth: authenticate middleware applied to all protected routes before role/permission checks
+- Role checks: requireRole() middleware — never inline role comparison in controller
+- No :any TypeScript types — use Zod inferred types or explicit interfaces
+- Graceful shutdown: handle SIGTERM/SIGINT, drain connections before exit

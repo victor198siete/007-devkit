@@ -1,0 +1,5 @@
+### PostgreSQL / Database
+- **DB_SYNCHRONIZE=false** → All DB structure requires manual migrations
+- Tables in `snake_case` plural, UUIDs as primary keys
+- Always generate migration: `npm run migration:generate -- src/database/migrations/<Name>`
+- Never DROP columns with data without confirmation

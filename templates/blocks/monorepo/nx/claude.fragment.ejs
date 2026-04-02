@@ -1,0 +1,5 @@
+### Nx Monorepo
+- Always use Nx CLI (`npx nx ...`) — never `npm install` inside `apps/` or `libs/`
+- Shared code → `libs/shared/` (DTOs, interfaces, utilities)
+- Project structure: `apps/api`, `apps/web`, `apps/mobile`, `libs/shared`
+- Check dependency graph: `npx nx graph`

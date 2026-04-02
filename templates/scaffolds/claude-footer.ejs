@@ -1,0 +1,51 @@
+
+## Critical Project Rules
+
+### Stack
+<% if (hasBackend) { %>- **Backend:** <%= isNestjs ? 'NestJS + TypeORM' : isExpress ? 'Express' : 'Next.js API Routes' %><%= hasDatabase ? ' + ' + database.charAt(0).toUpperCase() + database.slice(1) : '' %> (<%= isNx ? 'apps/api' : 'src' %>, prefix `api/v1`)
+<% } %><% if (hasFrontend) { %>- **Web:** <%= isAngular ? 'Angular 21 + Signals + Tailwind 4 + RepoHttp' : isReact ? 'React 19 + hooks + Tailwind' : isNextjs ? 'Next.js 14 App Router + RSC' : isVue ? 'Vue 3 + Composition API + Pinia' : 'Nuxt 3 + Vue 3 + Pinia' %> (<%= isNx ? 'apps/web' : 'src' %>)
+<% } %><% if (hasMobile) { %>- **Mobile:** <%= isIonic ? 'Ionic/Angular + Capacitor + Signals' : 'React Native + Expo' %> (<%= isNx ? 'apps/mobile' : 'mobile' %>)
+<% } %><% if (isPostgres) { %>- **DB_SYNCHRONIZE=false** → All DB structure requires manual migrations
+<% } %>
+
+<% if (isAngular) { %>### Angular / Web
+- **Signals mandatory:** `signal()`, `computed()`, `effect()` — never `BehaviorSubject`
+- **Injection:** always `inject()`, never constructor injection
+- **HTTP:** always `RepoHttp` (not `HttpClient` directly)
+- **Styles:** CSS theme variables (`--color-*`) — see `docs/frontend-ui-ux-guidelines.md`
+- **No hardcoded Tailwind:** never `text-blue-500`, always `text-(--color-primary)`
+
+<% } %><% if (isNestjs) { %>### NestJS / Backend
+- **JWT payload:** use `req.user.sub` for user ID (not `req.user.id`)
+- **Roles guard:** `@Roles(...)` — `req.user.roles` is array of strings
+- **Permissions:** `@Permissions(...)` for granular access
+- **Migrations:** always create file in `<%= isNx ? 'apps/api/src' : 'src' %>/database/migrations/`
+
+<% } %><% if (isIonic) { %>### Mobile (Ionic/Angular)
+- **Ionic standalone components:** import individually (`IonContent`, `IonButton`, etc.)
+- **Icons:** register with `addIcons()` in constructor
+- **Roles:** parents → `/parent/*`, teachers/admin → `/teacher/*`
+
+<% } %>---
+
+## Compliance Checklist — MANDATORY AT COMPLETION
+
+```
+## ✅ Standards Compliance
+
+| Document / Resource | Applied? | Note |
+|---------------------|:--------:|------|
+| \`.cursorrules\` | ✅ / ⚠️ / ➖ | |
+<% if (hasFrontend && isAngular) { %>| \`docs/frontend-ui-ux-guidelines.md\` | ✅ / ⚠️ / ➖ | |
+| \`docs/frontend-architecture-standards.md\` | ✅ / ⚠️ / ➖ | |
+<% } %><% if (hasBackend && isNestjs) { %>| \`docs/nest-backend-general-standards.md\` | ✅ / ⚠️ / ➖ | |
+<% } %>| \`docs/aim-methodology.md\` | ✅ / ⚠️ / ➖ | |
+| \`agents/workflows/<name>\` | ✅ / ⚠️ / ➖ | |
+| \`agents/roles/<agent>\` | ✅ / ⚠️ / ➖ | |
+| \`CLAUDE.md\` | ✅ / ⚠️ / ➖ | |
+```
+
+**Legend:**
+- ✅ Applied and respected
+- ⚠️ Considered with justified deviation (explain)
+- ➖ Not applicable for this task

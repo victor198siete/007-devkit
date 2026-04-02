@@ -1,0 +1,16 @@
+## Mobile (Ionic / Angular)
+
+- Import Ionic components individually (IonContent, IonButton, IonList, etc.) — never IonicModule
+- Register icons with addIcons() in the constructor before template renders — only icons used in the component
+- Routes: /parent/* for parents, /teacher/* for teachers and admin — never mix roles in the same subtree
+- Role guards applied on all protected routes — never rely on UI-only hiding
+- Separate tab layout components per role (parent-tabs, teacher-tabs) — never share tab layouts
+- Pull-to-refresh (IonRefresher) implemented on all list pages
+- Offline/error states handled gracefully — user-friendly message, retry available
+- Standalone components — standalone: true on every component and page
+- Signals for all reactive state — signal(), computed(), effect() — never BehaviorSubject or Subject
+- inject() for all dependency injection — never constructor injection with typed parameters
+- Template control flow — @if / @for / @switch — never *ngIf / *ngFor directives
+- No hardcoded colors or sizes — CSS variables via var(--color-*) or Ionic CSS variables
+- Capacitor native API calls wrapped with Capacitor.isNativePlatform() check
+- HTTP via project abstraction layer — never raw HttpClient

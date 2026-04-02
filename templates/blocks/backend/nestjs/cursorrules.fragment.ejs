@@ -1,0 +1,19 @@
+## Backend (NestJS)
+
+- DB_SYNCHRONIZE=false — always create migration files in src/database/migrations/
+- req.user.sub for user ID in JWT payload (never req.user.id)
+- @Roles(...) and @Permissions(...) decorators required on every controller method
+- Logger (NestJS) for all logging — never console.log()
+- ConfigService for environment variables — never process.env directly
+- HTTP exceptions: ConflictException, NotFoundException, ForbiddenException, BadRequestException, UnauthorizedException
+- Routes: kebab-case plural nouns (/user-profiles not /userProfiles, /activity-logs not /activityLog)
+- AuditService.log() on every CREATE, UPDATE, DELETE operation
+- All database tables: snake_case plural names, UUID primary keys
+- All column names: snake_case via explicit { name: '...' } TypeORM option
+- Migrations: always generate file, review before running, never rely on synchronize: true
+- DTOs: class-validator on all fields, UpdateDto always extends PartialType(CreateDto)
+- ParseUUIDPipe on all :id route parameters
+- @ApiProperty / @ApiPropertyOptional on all DTO and entity properties
+- @Exclude() + select: false on sensitive entity fields
+- No :any TypeScript types — use proper interfaces or unknown
+- Tenant isolation: always filter queries by tenantId from JWT, never from request body

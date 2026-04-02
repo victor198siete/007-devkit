@@ -1,0 +1,74 @@
+{
+  "name": "007devkit",
+  "version": "0.1.0",
+  "description": "CLI scaffold for TypeScript projects: AI agent system, AIM methodology and coding standards in seconds.",
+  "keywords": [
+    "cli",
+    "scaffold",
+    "devkit",
+    "ai-agents",
+    "angular",
+    "nestjs",
+    "react",
+    "nextjs",
+    "vue",
+    "nuxt",
+    "ionic",
+    "typescript",
+    "cursor",
+    "claude-code"
+  ],
+  "homepage": "https://github.com/007devkit/007devkit#readme",
+  "bugs": {
+    "url": "https://github.com/007devkit/007devkit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/007devkit/007devkit.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "dist/cli.js",
+  "types": "dist/cli.d.ts",
+  "bin": {
+    "007devkit": "dist/cli.js",
+    "devkit": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "templates",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run lint && npm run build && npm test"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "ejs": "^3.1.10",
+    "fs-extra": "^11.2.0",
+    "ora": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.12.0",
+    "@vitest/coverage-v8": "^1.5.0",
+    "execa": "^8.0.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.0",
+    "vitest": "^1.5.0"
+  }
+}

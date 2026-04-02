@@ -1,0 +1,9 @@
+## Monorepo (Turborepo)
+
+- **Run tasks from root** — always use `turbo run build`, `turbo run test`, etc. from the repo root
+- Shared packages in `packages/` directory — reference via workspace protocol (`"@repo/ui": "workspace:*"`)
+- `turbo.json`: define task dependencies correctly (`dependsOn: ["^build"]` for proper build order)
+- Never publish `packages/` to npm unless explicitly intended
+- Environment variables: use `.env.local` per app, never commit `.env` files
+- Cache: Turborepo remote cache speeds up CI — configure with Vercel or self-hosted
+- `package.json` scripts: always delegate to `turbo run <task>`
