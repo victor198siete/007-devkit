@@ -8,7 +8,7 @@ import path3 from "path";
 import * as p2 from "@clack/prompts";
 import chalk2 from "chalk";
 import ora from "ora";
-import fse2 from "fs-extra";
+import fse3 from "fs-extra";
 
 // src/prompts/questions.ts
 import * as p from "@clack/prompts";
@@ -133,8 +133,11 @@ async function runQuestions(targetDir) {
 // src/composer/template-composer.ts
 import path from "path";
 import { fileURLToPath } from "url";
+import fse from "fs-extra";
 var __dirname2 = path.dirname(fileURLToPath(import.meta.url));
-var TEMPLATES_DIR = path.join(__dirname2, "../../templates");
+var _fromDist = path.join(__dirname2, "../templates");
+var _fromSrc = path.join(__dirname2, "../../templates");
+var TEMPLATES_DIR = fse.existsSync(_fromDist) ? _fromDist : _fromSrc;
 function buildTemplateVars(config) {
   const now = /* @__PURE__ */ new Date();
   return {
@@ -396,10 +399,12 @@ var monorepoBlocks = {
 // src/generator/file-generator.ts
 import path2 from "path";
 import { fileURLToPath as fileURLToPath2 } from "url";
-import fse from "fs-extra";
+import fse2 from "fs-extra";
 import ejs from "ejs";
 var __dirname3 = path2.dirname(fileURLToPath2(import.meta.url));
-var TEMPLATES_DIR2 = path2.join(__dirname3, "../../templates");
+var _fromDist2 = path2.join(__dirname3, "../templates");
+var _fromSrc2 = path2.join(__dirname3, "../../templates");
+var TEMPLATES_DIR2 = fse2.existsSync(_fromDist2) ? _fromDist2 : _fromSrc2;
 var PACKAGE_VERSION = "0.1.0";
 async function generateFiles(config, targetDir, composed) {
   const result = { created: [], skipped: [], errors: [] };
@@ -425,15 +430,15 @@ async function copyCoreFiles(targetDir, vars, result) {
     const destPath = path2.join(targetDir, relativePath);
     try {
       const finalDest = filePath.endsWith(".ejs") ? destPath.replace(/\.ejs$/, "") : destPath;
-      const exists = await fse.pathExists(finalDest);
+      const exists = await fse2.pathExists(finalDest);
       if (exists) {
         result.skipped.push(relativePath.replace(/\.ejs$/, ""));
         continue;
       }
-      const content = await fse.readFile(filePath, "utf-8");
+      const content = await fse2.readFile(filePath, "utf-8");
       const rendered = filePath.endsWith(".ejs") ? ejs.render(content, vars) : content;
-      await fse.ensureDir(path2.dirname(finalDest));
-      await fse.writeFile(finalDest, rendered, "utf-8");
+      await fse2.ensureDir(path2.dirname(finalDest));
+      await fse2.writeFile(finalDest, rendered, "utf-8");
       result.created.push(relativePath.replace(/\.ejs$/, ""));
     } catch (err) {
       result.errors.push(`${relativePath}: ${err.message}`);
@@ -444,15 +449,15 @@ async function copyBlockFile(blockFile, targetDir, vars, result) {
   const srcPath = blockFile.src;
   const destPath = path2.join(targetDir, blockFile.dest);
   try {
-    const exists = await fse.pathExists(destPath);
+    const exists = await fse2.pathExists(destPath);
     if (exists && blockFile.skipIfExists !== false) {
       result.skipped.push(blockFile.dest);
       return;
     }
-    const content = await fse.readFile(srcPath, "utf-8");
+    const content = await fse2.readFile(srcPath, "utf-8");
     const rendered = srcPath.endsWith(".ejs") ? ejs.render(content, vars) : content;
-    await fse.ensureDir(path2.dirname(destPath));
-    await fse.writeFile(destPath, rendered, "utf-8");
+    await fse2.ensureDir(path2.dirname(destPath));
+    await fse2.writeFile(destPath, rendered, "utf-8");
     result.created.push(blockFile.dest);
   } catch (err) {
     result.errors.push(`${blockFile.dest}: ${err.message}`);
@@ -460,30 +465,30 @@ async function copyBlockFile(blockFile, targetDir, vars, result) {
 }
 async function renderCursorrules(fragmentPaths, targetDir, vars, result) {
   const destPath = path2.join(targetDir, ".cursorrules");
-  const exists = await fse.pathExists(destPath);
+  const exists = await fse2.pathExists(destPath);
   if (exists) {
     result.skipped.push(".cursorrules");
     return;
   }
   try {
-    const headerTpl = await fse.readFile(
+    const headerTpl = await fse2.readFile(
       path2.join(TEMPLATES_DIR2, "scaffolds/cursorrules-header.ejs"),
       "utf-8"
     );
     const parts = [ejs.render(headerTpl, vars)];
     for (const fragPath of fragmentPaths) {
-      const fragExists = await fse.pathExists(fragPath);
+      const fragExists = await fse2.pathExists(fragPath);
       if (!fragExists) continue;
-      const frag = await fse.readFile(fragPath, "utf-8");
+      const frag = await fse2.readFile(fragPath, "utf-8");
       parts.push(ejs.render(frag, vars));
     }
-    const footerTpl = await fse.readFile(
+    const footerTpl = await fse2.readFile(
       path2.join(TEMPLATES_DIR2, "scaffolds/cursorrules-footer.ejs"),
       "utf-8"
     );
     parts.push(ejs.render(footerTpl, vars));
-    await fse.ensureDir(path2.dirname(destPath));
-    await fse.writeFile(destPath, parts.join("\n\n---\n\n"), "utf-8");
+    await fse2.ensureDir(path2.dirname(destPath));
+    await fse2.writeFile(destPath, parts.join("\n\n---\n\n"), "utf-8");
     result.created.push(".cursorrules");
   } catch (err) {
     result.errors.push(`.cursorrules: ${err.message}`);
@@ -491,30 +496,30 @@ async function renderCursorrules(fragmentPaths, targetDir, vars, result) {
 }
 async function renderClaudeMd(fragmentPaths, targetDir, vars, result) {
   const destPath = path2.join(targetDir, "CLAUDE.md");
-  const exists = await fse.pathExists(destPath);
+  const exists = await fse2.pathExists(destPath);
   if (exists) {
     result.skipped.push("CLAUDE.md");
     return;
   }
   try {
-    const headerTpl = await fse.readFile(
+    const headerTpl = await fse2.readFile(
       path2.join(TEMPLATES_DIR2, "scaffolds/claude-header.ejs"),
       "utf-8"
     );
     const parts = [ejs.render(headerTpl, vars)];
     for (const fragPath of fragmentPaths) {
-      const fragExists = await fse.pathExists(fragPath);
+      const fragExists = await fse2.pathExists(fragPath);
       if (!fragExists) continue;
-      const frag = await fse.readFile(fragPath, "utf-8");
+      const frag = await fse2.readFile(fragPath, "utf-8");
       parts.push(ejs.render(frag, vars));
     }
-    const footerTpl = await fse.readFile(
+    const footerTpl = await fse2.readFile(
       path2.join(TEMPLATES_DIR2, "scaffolds/claude-footer.ejs"),
       "utf-8"
     );
     parts.push(ejs.render(footerTpl, vars));
-    await fse.ensureDir(path2.dirname(destPath));
-    await fse.writeFile(destPath, parts.join("\n\n"), "utf-8");
+    await fse2.ensureDir(path2.dirname(destPath));
+    await fse2.writeFile(destPath, parts.join("\n\n"), "utf-8");
     result.created.push("CLAUDE.md");
   } catch (err) {
     result.errors.push(`CLAUDE.md: ${err.message}`);
@@ -537,16 +542,16 @@ async function writeDevkitConfig(config, _composed, targetDir, result) {
     customized: [],
     installedAt: (/* @__PURE__ */ new Date()).toISOString()
   };
-  const exists = await fse.pathExists(destPath);
+  const exists = await fse2.pathExists(destPath);
   if (exists) {
     result.skipped.push("devkit.config.json");
     return;
   }
-  await fse.writeJson(destPath, devkitConfig, { spaces: 2 });
+  await fse2.writeJson(destPath, devkitConfig, { spaces: 2 });
   result.created.push("devkit.config.json");
 }
 async function collectFiles(dir) {
-  const entries = await fse.readdir(dir, { withFileTypes: true });
+  const entries = await fse2.readdir(dir, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
     const fullPath = path2.join(dir, entry.name);
@@ -564,8 +569,8 @@ async function collectFiles(dir) {
 async function initCommand(targetPath) {
   const targetDir = targetPath ? path3.resolve(process.cwd(), targetPath) : process.cwd();
   const dirName = path3.basename(targetDir);
-  const dirExists = await fse2.pathExists(targetDir);
-  const isEmpty = dirExists ? (await fse2.readdir(targetDir)).length === 0 : true;
+  const dirExists = await fse3.pathExists(targetDir);
+  const isEmpty = dirExists ? (await fse3.readdir(targetDir)).length === 0 : true;
   if (dirExists && !isEmpty) {
     const proceed = await p2.confirm({
       message: `${chalk2.yellow(dirName)} is not empty. Continue anyway?`,
@@ -577,7 +582,7 @@ async function initCommand(targetPath) {
     }
   }
   const config = await runQuestions(dirName);
-  await fse2.ensureDir(targetDir);
+  await fse3.ensureDir(targetDir);
   const spinner = ora("Preparing templates...").start();
   const blocks = resolveBlocks(config);
   const composed = composeOutput(blocks);
@@ -622,17 +627,17 @@ import path4 from "path";
 import * as p3 from "@clack/prompts";
 import chalk3 from "chalk";
 import ora2 from "ora";
-import fse3 from "fs-extra";
+import fse4 from "fs-extra";
 async function updateCommand(targetPath) {
   const targetDir = targetPath ? path4.resolve(process.cwd(), targetPath) : process.cwd();
   const configPath = path4.join(targetDir, "devkit.config.json");
-  const exists = await fse3.pathExists(configPath);
+  const exists = await fse4.pathExists(configPath);
   if (!exists) {
     console.log(chalk3.red("  \u2717 devkit.config.json not found."));
     console.log(chalk3.gray("    Run 007devkit init first."));
     process.exit(1);
   }
-  const devkitConfig = await fse3.readJson(configPath);
+  const devkitConfig = await fse4.readJson(configPath);
   console.log("");
   console.log(chalk3.bold.cyan(" 007devkit ") + chalk3.gray("\u2014 Update"));
   console.log(chalk3.gray(`  Project: ${devkitConfig.projectName}`));

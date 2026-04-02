@@ -1,9 +1,13 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fse from 'fs-extra';
 import type { DevkitConfig, TemplateBlock, BlockFile, TemplateVars } from '../types/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const TEMPLATES_DIR = path.join(__dirname, '../../templates');
+// Works in both: dist/cli.js (one level up) and src/subdir/ (two levels up)
+const _fromDist = path.join(__dirname, '../templates');
+const _fromSrc = path.join(__dirname, '../../templates');
+const TEMPLATES_DIR = fse.existsSync(_fromDist) ? _fromDist : _fromSrc;
 
 // ─── Build template variables from config ─────────────────────────────────────
 

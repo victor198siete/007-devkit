@@ -7,7 +7,10 @@ import type { ComposedOutput } from '../composer/template-composer.js';
 import { buildTemplateVars } from '../composer/template-composer.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const TEMPLATES_DIR = path.join(__dirname, '../../templates');
+// Works in both: dist/cli.js (one level up) and src/subdir/ (two levels up)
+const _fromDist = path.join(__dirname, '../templates');
+const _fromSrc = path.join(__dirname, '../../templates');
+const TEMPLATES_DIR = fse.existsSync(_fromDist) ? _fromDist : _fromSrc;
 const PACKAGE_VERSION = '0.1.0';
 
 // ─── Main generation entry point ─────────────────────────────────────────────
