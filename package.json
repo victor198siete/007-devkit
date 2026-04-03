@@ -18,19 +18,27 @@
     "cursor",
     "claude-code"
   ],
-  "homepage": "https://github.com/007devkit/007devkit#readme",
+  "homepage": "https://github.com/victor198siete/007-devkit#readme",
   "bugs": {
-    "url": "https://github.com/007devkit/007devkit/issues"
+    "url": "https://github.com/victor198siete/007-devkit/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/007devkit/007devkit.git"
+    "url": "https://github.com/victor198siete/007-devkit.git"
   },
   "license": "MIT",
   "author": "",
   "type": "module",
-  "main": "dist/cli.js",
-  "types": "dist/cli.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
   "bin": {
     "007devkit": "dist/cli.js",
     "devkit": "dist/cli.js"
